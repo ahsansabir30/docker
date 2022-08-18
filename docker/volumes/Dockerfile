@@ -1,0 +1,4 @@
+FROM mysql:5.7
+ENV MYSQL_ROOT_PASSWORD=password MYSQL_DATABASE=db
+# USING THIS WE CAN REMOVE THE MOUNT COMMAND IN DOCKER.SH (LINE 12)
+# COPY CreateTable.sql /docker-entrypoint-initdb.d

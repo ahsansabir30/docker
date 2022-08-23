@@ -1,0 +1,16 @@
+# Using NGINX to Load-Balance (setup on its owns NGINX VM)
+events{}
+http {
+    upstream noise {
+        server "[SWARM_MANAGER_PRIVATE_IP]":9000;
+        server "[SWARM_WORKER_PRIVATE_IP]":9000;
+    }
+    server {
+        location / {
+            proxy_pass http://noise;
+        }
+    }
+}
+
+# Run command in NGINX VM (To run NGINX load balancer)
+docker run -d -p 80:80 --name nginx-swarm-ingress --mount type=bind,source=$(pwd)/nginx.conf,target=/etc/nginx/nginx.conf nginx:alpine

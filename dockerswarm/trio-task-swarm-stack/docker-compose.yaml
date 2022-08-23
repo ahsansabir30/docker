@@ -1,0 +1,28 @@
+version: "3.7"
+services:
+  mysql:
+    image: ahsansabir30/mysql
+    build: ./db
+    volumes:
+      - type: volume
+        source: db_volume
+        target: /var/lib/mysql
+  flask-app:
+    image: ahsansabir30/flask-app
+    build: ./flask-app
+    deploy:
+      replicas: 4
+    ports:
+    - published: 5000
+      target: 5000
+  nginx:
+    image: nginx:latest
+    ports:
+    - published: 80
+      target: 80
+    volumes:
+    - type: bind
+      source: ./nginx/nginx.conf
+      target: /etc/nginx/nginx.conf
+volumes:
+  db_volume:

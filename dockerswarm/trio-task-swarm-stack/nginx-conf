@@ -1,0 +1,18 @@
+# Using NGINX to Load-Balance (setup on its owns NGINX VM)
+events{}
+http {
+    upstream flask-app {
+        server "[SWARM_MANAGER_PRIVATE_IP]":80;
+        server "[SWARM_WORKER_PRIVATE_IP]":80;
+    }
+    server {
+        location / {
+            proxy_pass http://flask-app;
+        }
+    }
+}
+
+# Run command in NGINX VM (To run NGINX load balancer)
+sudo apt install -y NGINX
+sudo cp nginx.conf /etc/nginx/nginx.conf
+sudo systemctl reload nginx

@@ -13,6 +13,6 @@ http {
 }
 
 # Run command in NGINX VM (To run NGINX load balancer)
-sudo apt install -y NGINX
+sudo apt install -y nginx
 sudo cp nginx.conf /etc/nginx/nginx.conf
 sudo systemctl reload nginx
